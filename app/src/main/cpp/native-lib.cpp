@@ -1,8 +1,6 @@
 #include <jni.h>
 #include <string>
 
-// #include "janet.h"
-// #include "janet.c"
 #include "janet.h"
 
 extern "C" JNIEXPORT jstring JNICALL
