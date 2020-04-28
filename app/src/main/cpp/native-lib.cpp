@@ -11,9 +11,17 @@ jobject global_obj;
 static Janet
 call_jni (int32_t argc, Janet *argv)
 {
-  jstring jstr = (*global_env)->NewStringUTF("This comes from jni janet.");
-  jclass clazz = (*global_env)->FindClass("com/ahungry/janet/MainActivity");
-  jmethodID messageMe = (*global_env)->GetMethodID(clazz, "messageMe", "(Ljava/lang/String;)Ljava/lang/String;");
+  janet_fixarity (argc, 3);
+  const char *message = janet_getcstring (argv, 0);
+  const char *use_class = janet_getcstring (argv, 1);
+  const char *use_method = janet_getcstring (argv, 2);
+
+  // jstring jstr = (*global_env)->NewStringUTF("This comes from jni janet.");
+  jstring jstr = (*global_env)->NewStringUTF(message);
+  // jclass clazz = (*global_env)->FindClass("com/ahungry/janet/MainActivity");
+  jclass clazz = (*global_env)->FindClass(use_class);
+
+  jmethodID messageMe = (*global_env)->GetMethodID(clazz, use_method, "(Ljava/lang/String;)Ljava/lang/String;");
   jobject result = (*global_env)->CallObjectMethod(global_obj, messageMe, jstr);
 
   const char* str = (*global_env)->GetStringUTFChars((jstring) result, NULL);
@@ -45,7 +53,7 @@ Java_com_ahungry_janet_MainActivity_stringFromJNI(
   janet_env = janet_core_env (NULL);
   janet_cfuns (janet_env, "lol", cfuns);
   // const char *embed = "(do (call-jni) ((fn [] \"a Greetings from janet env\")))";
-  const char *embed = "(call-jni)";
+  const char *embed = "(call-jni \"Woot This is Janet text\" \"com/ahungry/janet/MainActivity\" \"messageMe\")";
   Janet *out = (Janet *) malloc (1);
   janet_dostring (janet_env, embed, "main", out);
   janet_deinit ();
