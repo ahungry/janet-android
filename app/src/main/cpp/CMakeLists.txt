@@ -10,6 +10,12 @@ cmake_minimum_required(VERSION 3.4.1)
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
 
+set_source_files_properties (janet.c PROPERTIES LANGUAGE C)
+set_source_files_properties (janet.h PROPERTIES LANGUAGE C)
+set_source_files_properties (janetconf.h PROPERTIES LANGUAGE C)
+
+add_library (libjanet SHARED janet.c)
+
 add_library( # Sets the name of the library.
              native-lib
 

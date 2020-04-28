@@ -1,6 +1,9 @@
 #include <jni.h>
 #include <string>
 
+// #include "janet.h"
+// #include "janet.c"
+
 extern "C" JNIEXPORT jstring JNICALL
 Java_com_ahungry_janet_MainActivity_stringFromJNI(
         JNIEnv* env,
