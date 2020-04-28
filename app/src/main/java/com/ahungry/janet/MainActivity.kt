@@ -26,4 +26,11 @@ class MainActivity : AppCompatActivity() {
       System.loadLibrary("native-lib")
     }
   }
+
+  // please, let me live even though I used this dark programming technique
+  // public String messageMe(String text) {
+  fun messageMe(text: String): String {
+    System.out.println(text);
+    return text;
+  }
 }
