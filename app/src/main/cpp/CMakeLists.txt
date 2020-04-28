@@ -14,7 +14,7 @@ set_source_files_properties (janet.c PROPERTIES LANGUAGE C)
 set_source_files_properties (janet.h PROPERTIES LANGUAGE C)
 set_source_files_properties (janetconf.h PROPERTIES LANGUAGE C)
 
-add_library (libjanet SHARED janet.c)
+add_library (libjanet SHARED shim.c janet.c)
 
 add_library( # Sets the name of the library.
              native-lib
